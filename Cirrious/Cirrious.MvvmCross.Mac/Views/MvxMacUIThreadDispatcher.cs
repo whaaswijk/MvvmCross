@@ -1,57 +1,46 @@
-﻿// <copyright file="MvxTouchUIThreadDispatcher.cs" company="Cirrious">
-// (c) Copyright Cirrious. http://www.cirrious.com
-// This source is subject to the Microsoft Public License (Ms-PL)
-// Please see license.txt on http://opensource.org/licenses/ms-pl.html
-// All other rights reserved.
-// </copyright>
+﻿// MvxMacUIThreadDispatcher.cs
+// (c) Copyright Cirrious Ltd. http://www.cirrious.com
+// MvvmCross is licensed using Microsoft Public License (Ms-PL)
+// Contributions and inspirations noted in readme.md and license.txt
 // 
-// Project Lead - Stuart Lodge, Cirrious. http://www.cirrious.com
+// Project Lead - Stuart Lodge, @slodge, me@slodge.com
 
 using System;
-using System.Threading;
-using Cirrious.MvvmCross.Interfaces.Views;
 using System.Reflection;
-using MonoMac.AppKit;
-using Cirrious.CrossCore.Interfaces.Core;
-using Cirrious.CrossCore.Platform.Diagnostics;
+using System.Threading;
+using Cirrious.CrossCore.Core;
 using Cirrious.CrossCore.Exceptions;
+using Cirrious.CrossCore.Platform;
+using MonoMac.AppKit;
 
 namespace Cirrious.MvvmCross.Mac.Views
 {
     public abstract class MvxMacUIThreadDispatcher
-        : IMvxMainThreadDispatcher
-	{
-        private bool InvokeOrBeginInvoke(Action action)
-        {
-			NSApplication.SharedApplication.InvokeOnMainThread(() => {
-				try
-				{
-					action();
-				}
-                catch (ThreadAbortException)
-                {
-                    throw;
-                }
-                catch (TargetInvocationException exception)
-				{
-                    MvxTrace.Trace("TargetInvocateException masked " + exception.InnerException.ToLongString());
-				}
-                catch (Exception exception)
-				{
-#warning Should we mask all these exceptions?
-                    MvxTrace.Trace("Exception masked " + exception.ToLongString());
-				}
-			});
-            return true;
-        }
-
-        #region IMvxMainThreadDispatcher implementation
-		
+        : MvxMainThreadDispatcher
+    {
         public bool RequestMainThreadAction(Action action)
         {
-            return InvokeOrBeginInvoke(action);
+            NSApplication.SharedApplication.InvokeOnMainThread(() =>
+                {
+                    try
+                    {
+                        action();
+                    }
+                    catch (ThreadAbortException)
+                    {
+                        throw;
+                    }
+                    catch (TargetInvocationException exception)
+                    {
+                        MvxTrace.Trace("TargetInvocateException masked " + exception.InnerException.ToLongString());
+                    }
+                    catch (Exception exception)
+                    {
+                        // note - all exceptions masked!
+                        MvxTrace.Warning("Exception masked " + exception.ToLongString());
+                    }
+                });
+            return true;
         }
-		
-        #endregion
-	}	
+    }
 }
