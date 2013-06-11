@@ -14,16 +14,22 @@
 		<dependencies>
 		  <dependency id="MvvmCross.HotTuna.CrossCore" version="3.0.8.1" />
 		</dependencies>
+		<references>
+		  <group targetFramework="native0.0">
+			<reference file="..\bin\Release\Mvx\WindowsStore\x64\Cirrious.MvvmCross.Plugins.Sqlite.WindowsStore.dll" />
+			<reference file="..\bin\Release\Mvx\WindowsStore\x86\Cirrious.MvvmCross.Plugins.Sqlite.WindowsStore.dll" />
+			<reference file="..\bin\Release\Mvx\WindowsStore\ARM\Cirrious.MvvmCross.Plugins.Sqlite.WindowsStore.dll" />
+		  </group>
+		</references>
 	</metadata>
-	<files>		
+  <files>		
+	
 		<!-- PCL -->
 		<file src="..\bin\Release\Mvx\Portable\Cirrious.MvvmCross.Plugins.Sqlite.dll" target="lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.Plugins.Sqlite.dll" />
 
+	
 		<!-- store -->
 		<file src="..\bin\Release\Mvx\Portable\Cirrious.MvvmCross.Plugins.Sqlite.dll" target="lib\netcore45\Cirrious.MvvmCross.Plugins.Sqlite.dll" />
-		<file src="..\bin\Release\Mvx\WindowsStore\x86\Cirrious.MvvmCross.Plugins.Sqlite.WindowsStore.dll" target="lib\netcore45\x86\Cirrious.MvvmCross.Plugins.Sqlite.WindowsStore.dll" />
-		<file src="..\bin\Release\Mvx\WindowsStore\x64\Cirrious.MvvmCross.Plugins.Sqlite.WindowsStore.dll" target="lib\netcore45\x46\Cirrious.MvvmCross.Plugins.Sqlite.WindowsStore.dll" />
-		<file src="..\bin\Release\Mvx\WindowsStore\ARM\Cirrious.MvvmCross.Plugins.Sqlite.WindowsStore.dll" target="lib\netcore45\ARM\Cirrious.MvvmCross.Plugins.Sqlite.WindowsStore.dll" />
         <file src="BootstrapContent\SqlitePluginBootstrap.cs.pp" target="content\netcore45\Bootstrap\SqlitePluginBootstrap.cs.pp" />
         
 		<!-- phone -->
@@ -42,5 +48,8 @@
 		<file src="..\bin\Release\Mvx\Touch\Cirrious.MvvmCross.Plugins.Sqlite.Touch.dll" target="lib\MonoTouch40\Cirrious.MvvmCross.Plugins.Sqlite.Touch.dll" />
         <file src="TouchBootstrapContent\SqlitePluginBootstrap.cs.pp" target="content\MonoTouch40\Bootstrap\SqlitePluginBootstrap.cs.pp" />
 		
+        <file src="nativesqlite\tools\Install.ps1" target="tools\Install.ps1" />
+        <file src="nativesqlite\tools\MvvmCross.HotTuna.Plugin.Sqlite.targets" target="tools\MvvmCross.HotTuna.Plugin.Sqlite.targets" />
+        <file src="nativesqlite\tools\Uninstall.ps1" target="tools\Uninstall.ps1" />		
 	</files>
 </package>

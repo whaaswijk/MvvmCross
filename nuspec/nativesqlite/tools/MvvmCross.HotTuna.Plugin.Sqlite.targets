@@ -1,0 +1,32 @@
+<!--
+***********************************************************************************************
+MvvmCross.HotTuna.Plugin.Sqlite.targets
+
+WARNING:  DO NOT MODIFY this file unless you are knowledgeable about MSBuild and have
+          created a backup copy.  Incorrect changes to this file will make it
+          impossible to load or build your projects from the command-line or the IDE.
+
+***********************************************************************************************
+-->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <AppTargetFxWindowsStore Condition= "'$(TargetFrameworkIdentifier)' == 'WindowsStore'>true</AppTargetFxGreaterThanWP80>
+    </PropertyGroup>
+    <Target Name="PlatformCheck" BeforeTargets="BuildOnlySettings" Condition=" ('$(AppTargetFxGreaterThanWP80)' == 'true')  AND ('$(DesignTimeBuild)' != 'true') ">
+        <Error Condition=" ('$(Platform)' != 'x86') ('$(Platform)' != 'x64') AND ('$(Platform)' != 'ARM') " Text="$(MSBuildThisFileName) does not support the currently selected platform of '$(Platform)'. The supported platforms are 'x86', 'x64' and 'ARM'." />
+    </Target>
+    <Target Name="InjectReference" BeforeTargets="ResolveAssemblyReferences" Condition=" ('$(AppTargetFxGreaterThanWP80)' == 'true')  AND ('$(DesignTimeBuild)' != 'true') ">
+        <ItemGroup Condition=" '$(Platform)' == 'x86' ">
+            <Reference Include="$(MSBuildThisFileDirectory)..\lib\native\x86\Cirrious.MvvmCross.Plugins.Sqlite.WindowsStore.dll">
+            </Reference>
+        </ItemGroup>
+        <ItemGroup Condition=" '$(Platform)' == 'x64' ">
+            <Reference Include="$(MSBuildThisFileDirectory)..\lib\native\x64\Cirrious.MvvmCross.Plugins.Sqlite.WindowsStore.dll">
+            </Reference>
+        </ItemGroup>
+        <ItemGroup Condition=" '$(Platform)' == 'ARM' ">
+            <Reference Include="$(MSBuildThisFileDirectory)..\lib\native\ARM\Cirrious.MvvmCross.Plugins.Sqlite.WindowsStore.dll">
+            </Reference>
+        </ItemGroup>
+    </Target>
+</Project>
