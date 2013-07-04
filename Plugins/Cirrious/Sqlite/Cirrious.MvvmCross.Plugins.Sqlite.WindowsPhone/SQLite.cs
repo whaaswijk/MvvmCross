@@ -1515,43 +1515,7 @@ namespace SQLite
 		}
 	}
 
-	[AttributeUsage (AttributeTargets.Property)]
-	public class IgnoreAttribute : Attribute
-	{
-	}
-
-	[AttributeUsage (AttributeTargets.Property)]
-	public class UniqueAttribute : IndexedAttribute
-	{
-		public override bool Unique {
-			get { return true; }
-			set { /* throw?  */ }
-		}
-	}
-
-	[AttributeUsage (AttributeTargets.Property)]
-	public class MaxLengthAttribute : Attribute
-	{
-		public int Value { get; private set; }
-
-		public MaxLengthAttribute (int length)
-		{
-			Value = length;
-		}
-	}
-
-	[AttributeUsage (AttributeTargets.Property)]
-	public class CollationAttribute: Attribute
-	{
-		public string Value { get; private set; }
-
-		public CollationAttribute (string collation)
-		{
-			Value = collation;
-		}
-	}
-
-	public class TableMapping
+	public class TableMapping : ITableMapping
 	{
 		public Type MappedType { get; private set; }
 

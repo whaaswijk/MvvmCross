@@ -6,6 +6,8 @@
 // Project Lead - Stuart Lodge, @slodge, me@slodge.com
 
 using SQLite;
+using System.IO;
+using Windows.Storage;
 
 namespace Cirrious.MvvmCross.Plugins.Sqlite.WindowsPhone
 {
@@ -13,7 +15,10 @@ namespace Cirrious.MvvmCross.Plugins.Sqlite.WindowsPhone
     {
         public ISQLiteConnection Create(string address)
         {
-            return new SQLiteConnection(address);
+            // In WP8 we have to specify the full path to where we want to save
+            // the file. Note that this currently always creates the database
+            // in a subfolder of the local application storage.
+            return new SQLiteConnection(Path.Combine(ApplicationData.Current.LocalFolder.Path, address));
         }
     }
 }
