@@ -1488,16 +1488,6 @@ namespace SQLite
 	}
 
 	[AttributeUsage (AttributeTargets.Property)]
-	public class PrimaryKeyAttribute : Attribute
-	{
-	}
-
-	[AttributeUsage (AttributeTargets.Property)]
-	public class AutoIncrementAttribute : Attribute
-	{
-	}
-
-	[AttributeUsage (AttributeTargets.Property)]
 	public class IndexedAttribute : Attribute
 	{
 		public string Name { get; set; }
